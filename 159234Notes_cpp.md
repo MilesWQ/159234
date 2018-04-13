@@ -1,9 +1,13 @@
 C++
 
 ----
+
 This note is only for personal use.
+
 The contents are sorted from course slides and notes in lectures and tutorials.
+
 I don't intend to record every detail that can be referred from public sources in this note, so it mainly covers the emphases of the course.
+
 ----
 
 Table of Contents
