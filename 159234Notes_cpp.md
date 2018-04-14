@@ -2,52 +2,48 @@ C++
 
 ----
 
-This note is only for personal use.
+This material is only for personal use.
 
-The contents are sorted from course slides and notes in lectures and tutorials.
+The contents are sorted and referenced from course slides as well as notes in lectures and tutorials. 
 
-I don't intend to record every detail that can be referred from public sources in this note, so it mainly covers the emphases of the course.
+This note will not record every detail which could be referred from public resources,  **it mainly covers the key emphases of the course**.
+
+Use Visual Studio 2017 as a learning environment. Sample code can be compiled with vc++, c++11 standard.
 
 ----
 
 Table of Contents
 =================
+
 * [C review &amp; C\+\+ basic](#c-review--c-basic)
-  * [Stack memory](#stack-memory)
-  * [Dynamic memory](#dynamic-memory)
+  * [Static(Stack) memory in C](#staticstack-memory-in-c)
+  * [Dynamic(Heap) memory in C](#dynamicheap-memory-in-c)
   * [Enumeration](#enumeration)
   * [Range\-based loop](#range-based-loop)
   * [Input and Output](#input-and-output)
   * [File streams](#file-streams)
-* [Constructors &amp; Destructors](#constructors--destructors)
-  * [Constructor &amp; Default constructors](#constructor--default-constructors)
-  * [Create objects on stack and heap](#create-objects-on-stack-and-heap)
-  * [malloc/free and new/delete](#mallocfree-and-newdelete)
-  * [Initializer list](#initializer-list)
-  * [this pointer](#this-pointer)
-  * [Destructor](#destructor)
-  * [Constructors &amp; Destructors](#constructors--destructors-1)
-  * [Copying objects](#copying-objects)
-  * [Copy Constructor &amp; Move Constructor](#copy-constructor--move-constructor)
-  * [lvalues &amp; rvalues](#lvalues--rvalues)
-* [Overloading operators](#overloading-operators)
-  * [Assignment operators](#assignment-operators)
-  * [Arithmetic operators](#arithmetic-operators)
-  * [const members](#const-members)
-  * [Overloading increment/decrement](#overloading-incrementdecrement)
-  * [Overloading comparison operators](#overloading-comparison-operators)
-  * [Overloading the subscript operator](#overloading-the-subscript-operator)
-  * [friend keyword and overloading operators](#friend-keyword-and-overloading-operators)
-  * [Overloading Input &amp; Output operators](#overloading-input--output-operators)
+* [Strings](#strings)
+  * [C style strings vs C\+\+ strings](#c-style-strings-vs-c-strings)
+  * [Initialize and assign to strings](#initialize-and-assign-to-strings)
+  * [Accessing Strings](#accessing-strings)
+  * [String functions](#string-functions)
+* [Functions](#functions)
+  * [Prototypes and definitions](#prototypes-and-definitions)
+  * [inline function](#inline-function)
+  * [Function overloading](#function-overloading)
+  * [Default parameters](#default-parameters)
+  * [References](#references)
+* [Memory Management](#memory-management)
+  * [Static memory and dynamic memory](#static-memory-and-dynamic-memory)
 
 ## C review & C++ basic
 
-### Stack memory
+### Static(Stack) memory in C
 
 Each function can set up its own variables on the stack. Variables set up on the stack typically last only for the duration
 of the function that declares them.
 
-### Dynamic memory
+### Dynamic(Heap) memory in C
 
 `malloc` allocates bytes of memory and returns a void pointer (void*).
 
@@ -66,23 +62,29 @@ int main(){
     day today = mon;
 }
 ```
+
 ### Range-based loop
 
 Range-based for loops in C++ can be used to iterate through all the elements in an array.
 
-C++ and onwards support this feature.
+C++11 and onwards support this feature.
+
 ```
 for(auto i: {0,1,2,3,4}){
     cout<<i<<endl;
 }
 ```
+
 ### Input and Output
+
+`cerr` can't write to files.
 
 The extraction operator `>>` discards all whitespace and reads the next data item.
 
 The way data is read is determined by the variable on the right hand side of the operator.
 
 example:
+
 ```
 int main(){
     int i;
@@ -92,10 +94,12 @@ int main(){
     cin>>i>>f // After input 10.66 99, i stores 10 , f stores 0.66, 99 is held.
 }
 ```
+
 ### File streams
 
 ifstream: read data from a file stream to program variables.
-ofstream: write data from program variables to a file stream
+
+ofstream: write data from program variables to a file stream.
 
 ```
 #include<fstream>
@@ -131,6 +135,8 @@ if(!fin){
 }
 ```
 
+Conclusions on streams:
+
 | #include<iostream> | #include <fstream> | |
 | ---- | ---- | ---- |
 | cin>>ch | file >> ch | skip whitespace ifstream file |
@@ -142,6 +148,290 @@ if(!fin){
 
 formatting output uses <iomanip> '#include <iomanip>'
 
+----
+
+## Strings
+
+### C style strings vs C++ strings
+
+C style strings: An array of characters terminated by the null character '\0'.
+
+C++ strings: Defined as a type with associated functions in the library.`<string>`
+
+### Initialize and assign to strings
+
+Initialize sample:
+
+```
+int main(){
+    string s1("hello");
+    string s2(10, 's');
+    string name = "John Doe";
+}
+```
+
+Strings can be assigned to each other directly or using `assign()`. `assign()` can copy the whole string or just a section of it.
+
+Assignment sample:
+
+```
+int main() {
+    string s1, s2, s3;
+    s1 = "hello";
+    s2.assign(s1);
+    s3.assign(s2, 0, 2); // assign two characters beginning at the subscript 0;
+    cout << s1 << " " << s2 << " " << s3 << endl;
+}
+```
+
+### Accessing Strings 
+
+Accessing individual characters of the string using `[]` or `at()`.
+
+```
+int main() {
+    string s1 = "foo";
+    string s2 = "bar";
+    s1[0] = s2.at(2);
+}
+```
+
+Difference between `[]` and `at()`
+
+1. The `at()` function performs range checking, while `[]` does not.
+2. If the parameter index is out of bounds by calling `at()` function an out_of_range exception will be thrown.
+
+### String functions
+
+refer to library [information](http://www.cplusplus.com/reference/string/string/).
+
+----
+
+## Functions
+
+### Prototypes and definitions
+
+Every function should have its prototype declared before the `main` function and its definition after `main`.
+
+Functions should at least have their prototypes(declarations) set up before they are used.
+
+### `inline` function
+
+The `inline` function requires the compiler to perform substitution rather than a full function call.
+
+```
+inline int cube(int i){
+    return i * i * i;
+}
+```
+
+### Function overloading
+
+C doesn't support function overloading.
+
+In C++, Overloaded functions should have different number or types of parameters.
+
+The complier can determine which of the functions should be called based on the type of arguments.
+
+Matching rules of function calling:
+1. Exact match.
+2. Match by promoting float to double, short to long etc.
+3. Match by converting float to int.
+
+The compiler just determines the matched function by parameter signatures. **The difference only in return type is not function overloading**.
+
+### Default parameters
+
+Default parameters can only be set on the tail of the parameter list.
+
+If we want to pass an argument to one of  default parameters, we must provide arguments for all preceding default values.
+
+### References
+
+References can only be initialized.Once a reference has been set to refer to a variable it can not be changed to refer to something else.
+
+## Memory Management
+
+### Static memory and dynamic memory
+
+Statically allocated memory is performed by the system and is determined at compile-time, using declarations and definitions.
+
+Dynamically allocated memory is set at run-time, using predefined operators.
+
+C run-time memory allocation uses `malloc`, it allocates specified bytes of memory and returns a void* pointer.
+
+C dynamic memory management sample:
+
+```
+int main(){
+    int *p1 = (int*)malloc(sizeof(int));
+    int *p2 = (int*)malloc(10*sizeof(int));
+    
+    *p1 = 1;
+    p2[0] = *p1;
+    free(p1); free(p2);
+    p1 = NULL; p2 = NULL;
+}
+```
+
+C++ dynamic memory management sample:
+
+int main(){
+    int *p1 = new int;
+    int *p2 = new int[10];
+    
+    *p1 = 1;
+    p2[0] = *p1;
+    delete(p1); delete[](p2);
+    p1 = nullptr; p2 = nullptr;
+}
+```
+
+What are the differences between `malloc`/`free` and `new`/`delete`?
+1. `malloc` simply allocates the necessary number of bytes in memory.`New` will allocate memory chunks 
+and also call *constructor* for a new object.
+2. We have to manually set required size for `malloc` while the compiler will calculate the size for `new`.
+3. `new` returns a full typed pointer(type-aware). `malloc` returns a *void pointer which is needed to cast to an appropriate type.
+4. `new`/`delete` call the constructors and the destructor of a class while `malloc`/`free` do not.
+
+It's important to ensure to call `new`/`delete` and 'new[]'/`delete[]` in  a matching manner.
+
+What are the differences between `delete` and `delete[]`?
+1. The `delete` will free up the memory and call the destructor for a single object.
+2. The `delete[]` will deallocate the memory and call destructors for an array of objects.
+
+`nullptr` only represents a pointer which can not be implicitly converted  to an integral type.
+
+`nullptr` is a pointer of type `nullptr_t`. If there are two or more overloaded functions that accept a pointer type,an overloaded for `nullptr_t`
+should be provided to handle the `nullptr`.
+
+sample:
+```
+void print(int *p) {cout<<"int* "<<endl;}
+void print(nullptr_t nullp) {cout<<"nullptr"<<endl;}
+int main(){
+    print(nullptr);
+}
+```
+
+### Scope
+
+The scope resolution operater `::` allows us to access something in the external scope.
+
+The `::` in the below sample just accesses the global scope:
+
+```
+int i =0;
+int main(){
+    int i =1;
+    for (int i =2; i<3; ++i){
+        cout<<i<<" "<<(::i)<<endl;  //output: 2 0
+    }
+}
+```
+
+### Namespaces
+
+3 manners to import namespaces
+
+```
+using namespace std;
+//or
+using std::cout;
+using std::endl;
+//or
+std::cout<<"foo"<<std::endl;
+```
+
+### Static variables
+
+A static local variable is created when the program encounters it and will not be destroyed until the finish of `main` function.
+
+----
+
+## Introduction to Class
+
+### Structures
+
+A `struct` is a definition not a declaration.
+
+Structure variables can be assigned to each other.
+
+Comparison or input/output must be operated with each member individually.
+
+All members in a structure are public. 
+
+operations on struct:
+```
+struct Room {
+	string room_name;
+	string purpose;
+	int time_limit;
+};
+int main(){
+    Room[10] rooms;
+    rooms[0].room_name = "lab1";
+    rooms[0].purpose = "teaching";
+    rooms[0].time_limit = 120;
+    rooms[1] = rooms[0];    //struct assignment
+    Room room2 = rooms[1];    //another struct assignment
+    if(room[0].room_name == room2.room_name){
+        cout<<"identical"<<endl;
+    }
+}
+```
+
+### Class concept
+
+A class is a collection of a fixed number of components -- variable declarations and/or function definitions.
+
+Variables declarations are usually referred to data members.
+
+function definitions are usually called methods.
+
+### Encapsulation
+
+Information hiding is the basic of encapsulation which is implemented by visibility modifiers -- `public`, `protected`, 'private'.
+
+Encapsulation is a mechanism of wrapping the data(variables) and functions acting on these data(methods) together as a single unit.
+
+Encapsulation = Group the data and functionalities + data hiding.
+
+The advantage of  encapsulation is the interior workings of an object are not known to the outside that 
+avoid setting the variable to a wrong value accidentally.
+
+The public methods are referred as interfaces of the class. 
+
+Methods should be public if they are part of the interface of the class and private if they are only used as part of the inner workings of the class.
+
+public interface get and set methods are accessors and mutators.
+
+Class can contain other classes. This is called composition.
+
+### Static members
+
+Static variables and methods are associated to the class rather than instances.
+
+Static methods can be implemented inline or outside the class declaration.
+
+static member sample
+```
+class Account{
+public:
+    Account(float balance);
+    float getBalance()const { return balance_;}
+    void setBalance(float balance){ balance_ = balance; }
+    static float getInterestRate(){ return interest_rate_; }
+private:
+    static float interest_rate_;
+    float balance_;
+};
+Account::Account(float balance): balance_(balance) {}
+float Account::interest_rate_ = 0.05f;      // initialize static member outside the class.
+int main(){
+    cout<<Account::getInterestRate()<<endl;
+}
+```
 
 ## Constructors & Destructors
 
@@ -198,17 +488,6 @@ int main(){
 }
 ```
 
-What are the differences between `malloc`/`free` and `new`/`delete`?
-1. `malloc` simply allocates the necessary number of bytes in memory.`New` will allocate memory chunks 
-and also call *constructor* for a new object.
-2. We have to manually set required size for `malloc` while the compiler will calculate the size for `new`.
-3. `new` returns a full typed pointer(type-aware).`malloc` returns a *void pointer which is needed to cast to an appropriate type.
-4. `new`/`delete` call the constructors and the destructor of a class while `malloc`/`free` do not.
-
-What are the differences between `delete` and `delete[]`?
-1. The `delete` will free up the memory and call the destructor for a single object.
-2. The `delete[]` will deallocate the memory and call destructors for an array of objects.
-
 ### Initializer list
 
 To initialize the **const** and **reference** members in a constructor, we must use initializer list.
@@ -242,7 +521,7 @@ is called for dynamically allocated objects.
 Why shallow copy would cause problem?
 
 When an object is passed by value each member values of that object will be copied directly 
-to the new object. In the case the original instance has pointer members or use dynamically allocated memory,the pointers 
+to the new object. In the case the original instance has pointer members or use dynamically allocated memory,both the pointers 
 in the original one and the copied object point to the same memory chunks.This will cause double delete when
 destructors are called when one of the object goes out of the related scope.
 
@@ -313,8 +592,8 @@ void List::AddtoFront(int number){
 ```
 Why must the parameter for a copy constructor be a reference to pointer?
 
-1. If it's not passed by reference,  the copy constructor will be called in infinite recursion as it needs to copy the object to 
-the constructor's parameter by value.
+1. If it's not passed by reference,  the copy constructor will be called in infinite recursion when it needs to copy the object to 
+the constructor's parameter.
 2. Since copy constructors don't change the values of the original object, we use const to ensure this feature.
  
  ### lvalues & rvalues
@@ -336,8 +615,9 @@ We can call `std::move()` explicitly to move the object to an lvalue.
 
 Assignment operator must implement deep copies.
 
-When an object is initialized with another object, the copy constructor is called.The assignment operator is called when one object is 
-assigned to another exist object.
+When an object is initialized with another object, the copy constructor is called.
+
+The assignment operator is called when one object is assigned to another exist object.
 
 sample syntax continuing with the previous List context:
 ```
@@ -551,6 +831,7 @@ ostream& operator<<(ostream& out, const Rational &rational){
 }
 istream& operator>>(istream& in, Rational &rational){
     in>>rational.element_[0]>>rational.element_[1];
+    return in;
 }
 ```
 
@@ -558,6 +839,7 @@ Why return a reference to an ostream?
 
 By returning a reference, the result output can be used as an output stream for another object which has the functionality to 
 receive multiple output values.
+sample:
 
 ```
 int main(){
