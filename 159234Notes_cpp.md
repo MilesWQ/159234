@@ -36,6 +36,8 @@ Table of Contents
 * [Memory Management](#memory-management)
   * [Static memory and dynamic memory](#static-memory-and-dynamic-memory)
 
+----
+  
 ## C review & C++ basic
 
 ### Static(Stack) memory in C
@@ -434,6 +436,8 @@ int main(){
 }
 ```
 
+----
+
 ## Constructors & Destructors
 
 ### Constructor & Default constructors
@@ -609,6 +613,8 @@ A copy constructor can be used to take a copy of either an lvalue or an rvalue w
 If there's no move constructor available, the compiler will use the copy constructor.
 
 We can call `std::move()` explicitly to move the object to an lvalue.
+
+----
 
 ## Overloading operators
 
