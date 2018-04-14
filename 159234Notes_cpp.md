@@ -276,6 +276,7 @@ int main(){
 
 C++ dynamic memory management sample:
 
+```
 int main(){
     int *p1 = new int;
     int *p2 = new int[10];
