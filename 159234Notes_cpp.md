@@ -15,26 +15,55 @@ Use Visual Studio 2017 as a learning environment. Sample code can be compiled wi
 Table of Contents
 =================
 
-* [C review &amp; C\+\+ basic](#c-review--c-basic)
-  * [Static(Stack) memory in C](#staticstack-memory-in-c)
-  * [Dynamic(Heap) memory in C](#dynamicheap-memory-in-c)
-  * [Enumeration](#enumeration)
-  * [Range\-based loop](#range-based-loop)
-  * [Input and Output](#input-and-output)
-  * [File streams](#file-streams)
-* [Strings](#strings)
-  * [C style strings vs C\+\+ strings](#c-style-strings-vs-c-strings)
-  * [Initialize and assign to strings](#initialize-and-assign-to-strings)
-  * [Accessing Strings](#accessing-strings)
-  * [String functions](#string-functions)
-* [Functions](#functions)
-  * [Prototypes and definitions](#prototypes-and-definitions)
-  * [inline function](#inline-function)
-  * [Function overloading](#function-overloading)
-  * [Default parameters](#default-parameters)
-  * [References](#references)
-* [Memory Management](#memory-management)
-  * [Static memory and dynamic memory](#static-memory-and-dynamic-memory)
+* [Table of Contents](#table-of-contents)
+  * [C review &amp; C\+\+ basic](#c-review--c-basic)
+    * [Static(Stack) memory in C](#staticstack-memory-in-c)
+    * [Dynamic(Heap) memory in C](#dynamicheap-memory-in-c)
+    * [Enumeration](#enumeration)
+    * [Range\-based loop](#range-based-loop)
+    * [Input and Output](#input-and-output)
+    * [File streams](#file-streams)
+  * [Strings](#strings)
+    * [C style strings vs C\+\+ strings](#c-style-strings-vs-c-strings)
+    * [Initialize and assign to strings](#initialize-and-assign-to-strings)
+    * [Accessing Strings](#accessing-strings)
+    * [String functions](#string-functions)
+  * [Functions](#functions)
+    * [Prototypes and definitions](#prototypes-and-definitions)
+    * [inline function](#inline-function)
+    * [Function overloading](#function-overloading)
+    * [Default parameters](#default-parameters)
+    * [References](#references)
+  * [Memory Management](#memory-management)
+    * [Static memory and dynamic memory](#static-memory-and-dynamic-memory)
+    * [Scope](#scope)
+    * [Namespaces](#namespaces)
+    * [Static variables](#static-variables)
+  * [Introduction to Class](#introduction-to-class)
+    * [Structures](#structures)
+    * [Class concept](#class-concept)
+    * [Encapsulation](#encapsulation)
+    * [Static members](#static-members)
+  * [Constructors &amp; Destructors](#constructors--destructors)
+    * [Constructor &amp; Default constructors](#constructor--default-constructors)
+    * [Create objects on stack and heap](#create-objects-on-stack-and-heap)
+    * [malloc/free and new/delete](#mallocfree-and-newdelete)
+    * [Initializer list](#initializer-list)
+    * [this pointer](#this-pointer)
+    * [Destructor](#destructor)
+    * [Constructors &amp; Destructors](#constructors--destructors-1)
+    * [Copying objects](#copying-objects)
+    * [Copy Constructor &amp; Move Constructor](#copy-constructor--move-constructor)
+    * [lvalues &amp; rvalues](#lvalues--rvalues)
+  * [Overloading operators](#overloading-operators)
+    * [Assignment operators](#assignment-operators)
+    * [Arithmetic operators](#arithmetic-operators)
+    * [const members](#const-members)
+    * [Overloading increment/decrement](#overloading-incrementdecrement)
+    * [Overloading comparison operators](#overloading-comparison-operators)
+    * [Overloading the subscript operator](#overloading-the-subscript-operator)
+    * [friend keyword and overloading operators](#friend-keyword-and-overloading-operators)
+    * [Overloading Input &amp; Output operators](#overloading-input--output-operators)
 
 ----
   
@@ -148,7 +177,7 @@ Conclusions on streams:
 | cout<<value | file<<value | write value to output stream. ofstream file |
 | cout.put(ch) | file.put(ch) | write out a char. ofstream file |
 
-formatting output uses <iomanip> '#include <iomanip>'
+formatting output uses `<iomanip>`.
 
 ----
 
@@ -268,7 +297,6 @@ C dynamic memory management sample:
 int main(){
     int *p1 = (int*)malloc(sizeof(int));
     int *p2 = (int*)malloc(10*sizeof(int));
-    
     *p1 = 1;
     p2[0] = *p1;
     free(p1); free(p2);
