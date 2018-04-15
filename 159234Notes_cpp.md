@@ -189,6 +189,12 @@ C style strings: An array of characters terminated by the null character '\0'.
 
 C++ strings: Defined as a type with associated functions in the library.`<string>`
 
+Compare c type strings and C++ String:
+1. C++ string is implemented with an ADT in library which is more intuitive to use.
+2. C++ string avoid dynamical memory allocation.
+3. There are many useful functions and operators.
+4. C type strings have pointers behind.It might have a risk at memory leaks or dangling memory.
+
 ### Initialize and assign to strings
 
 Initialize sample:
@@ -262,14 +268,14 @@ C doesn't support function overloading.
 
 In C++, Overloaded functions should have different number or types of parameters.
 
+The compiler just determines the matched function by parameter signatures. **The difference only in return type is not function overloading**.
+
 The complier can determine which of the functions should be called based on the type of arguments.
 
 Matching rules of function calling:
 1. Exact match.
 2. Match by promoting float to double, short to long etc.
 3. Match by converting float to int.
-
-The compiler just determines the matched function by parameter signatures. **The difference only in return type is not function overloading**.
 
 ### Default parameters
 
@@ -330,6 +336,8 @@ It's important to ensure to call `new`/`delete` and 'new[]'/`delete[]` in  a mat
 What are the differences between `delete` and `delete[]`?
 1. The `delete` will free up the memory and call the destructor for a single object.
 2. The `delete[]` will deallocate the memory and call destructors for an array of objects.
+
+`delete` is type aware it knows how much memory to be free.
 
 `nullptr` only represents a pointer which can not be implicitly converted  to an integral type.
 
@@ -420,9 +428,9 @@ Variables declarations are usually referred to data members.
 
 function definitions are usually called methods.
 
-### Encapsulation
-
 Information hiding is the basic of encapsulation which is implemented by visibility modifiers -- `public`, `protected`, 'private'.
+
+### Encapsulation
 
 Encapsulation is a mechanism of wrapping the data(variables) and functions acting on these data(methods) together as a single unit.
 
@@ -436,6 +444,15 @@ The public methods are referred as interfaces of the class.
 Methods should be public if they are part of the interface of the class and private if they are only used as part of the inner workings of the class.
 
 public interface get and set methods are accessors and mutators.
+
+Accessors and mutators have two similarities:
+1. In generally ,they're public members.
+2. They both have direct access to private members.
+ 
+ Two differences:
+ 1. Accessors return types of related private members. Mutators have parameters to modify private members.
+ 2. In most cases, accessors are const methods.The advantage of this setting is that they can work with const object of this defined type.
+ Mutators can never be const methods.
 
 Class can contain other classes. This is called composition.
 
@@ -874,8 +891,8 @@ Why return a reference to an ostream?
 
 By returning a reference, the result output can be used as an output stream for another object which has the functionality to 
 receive multiple output values.
-sample:
 
+sample:
 ```
 int main(){
     Rational a(3,4);
