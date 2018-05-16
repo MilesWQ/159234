@@ -1,0 +1,13 @@
+4
+INMS-Lab1
+teaching
+60
+INMS-Lab2
+teaching
+120
+INMS-2.14
+meeting
+60
+INMS-3.08
+meeting
+120
