@@ -15,55 +15,61 @@ Use Visual Studio 2017 as a learning environment. Sample code can be compiled wi
 Table of Contents
 =================
 
-* [Table of Contents](#table-of-contents)
-  * [C review &amp; C\+\+ basic](#c-review--c-basic)
-    * [Static(Stack) memory in C](#staticstack-memory-in-c)
-    * [Dynamic(Heap) memory in C](#dynamicheap-memory-in-c)
-    * [Enumeration](#enumeration)
-    * [Range\-based loop](#range-based-loop)
-    * [Input and Output](#input-and-output)
-    * [File streams](#file-streams)
-  * [Strings](#strings)
-    * [C style strings vs C\+\+ strings](#c-style-strings-vs-c-strings)
-    * [Initialize and assign to strings](#initialize-and-assign-to-strings)
-    * [Accessing Strings](#accessing-strings)
-    * [String functions](#string-functions)
-  * [Functions](#functions)
-    * [Prototypes and definitions](#prototypes-and-definitions)
-    * [inline function](#inline-function)
-    * [Function overloading](#function-overloading)
-    * [Default parameters](#default-parameters)
-    * [References](#references)
-  * [Memory Management](#memory-management)
-    * [Static memory and dynamic memory](#static-memory-and-dynamic-memory)
-    * [Scope](#scope)
-    * [Namespaces](#namespaces)
-    * [Static variables](#static-variables)
-  * [Introduction to Class](#introduction-to-class)
-    * [Structures](#structures)
-    * [Class concept](#class-concept)
-    * [Encapsulation](#encapsulation)
-    * [Static members](#static-members)
-  * [Constructors &amp; Destructors](#constructors--destructors)
-    * [Constructor &amp; Default constructors](#constructor--default-constructors)
-    * [Create objects on stack and heap](#create-objects-on-stack-and-heap)
-    * [malloc/free and new/delete](#mallocfree-and-newdelete)
-    * [Initializer list](#initializer-list)
-    * [this pointer](#this-pointer)
-    * [Destructor](#destructor)
-    * [Constructors &amp; Destructors](#constructors--destructors-1)
-    * [Copying objects](#copying-objects)
-    * [Copy Constructor &amp; Move Constructor](#copy-constructor--move-constructor)
-    * [lvalues &amp; rvalues](#lvalues--rvalues)
-  * [Overloading operators](#overloading-operators)
-    * [Assignment operators](#assignment-operators)
-    * [Arithmetic operators](#arithmetic-operators)
-    * [const members](#const-members)
-    * [Overloading increment/decrement](#overloading-incrementdecrement)
-    * [Overloading comparison operators](#overloading-comparison-operators)
-    * [Overloading the subscript operator](#overloading-the-subscript-operator)
-    * [friend keyword and overloading operators](#friend-keyword-and-overloading-operators)
-    * [Overloading Input &amp; Output operators](#overloading-input--output-operators)
+* [C review &amp; C\+\+ basic](#c-review--c-basic)
+  * [Static(Stack) memory in C](#staticstack-memory-in-c)
+  * [Dynamic(Heap) memory in C](#dynamicheap-memory-in-c)
+  * [Enumeration](#enumeration)
+  * [Range\-based loop](#range-based-loop)
+  * [Input and Output](#input-and-output)
+  * [File streams](#file-streams)
+* [Strings](#strings)
+  * [C style strings vs C\+\+ strings](#c-style-strings-vs-c-strings)
+  * [Initialize and assign to strings](#initialize-and-assign-to-strings)
+  * [Accessing Strings](#accessing-strings)
+  * [String functions](#string-functions)
+* [Functions](#functions)
+  * [Prototypes and definitions](#prototypes-and-definitions)
+  * [inline function](#inline-function)
+  * [Function overloading](#function-overloading)
+  * [Default parameters](#default-parameters)
+  * [References](#references)
+* [Memory Management](#memory-management)
+  * [Static memory and dynamic memory](#static-memory-and-dynamic-memory)
+  * [Scope](#scope)
+  * [Namespaces](#namespaces)
+  * [Static variables](#static-variables)
+* [Introduction to Class](#introduction-to-class)
+  * [Structures](#structures)
+  * [Class concept](#class-concept)
+  * [Encapsulation](#encapsulation)
+  * [Static members](#static-members)
+* [Constructors &amp; Destructors](#constructors--destructors)
+  * [Constructor &amp; Default constructors](#constructor--default-constructors)
+  * [Create objects on stack and heap](#create-objects-on-stack-and-heap)
+  * [malloc/free and new/delete](#mallocfree-and-newdelete)
+  * [Initializer list](#initializer-list)
+  * [this pointer](#this-pointer)
+  * [Destructor](#destructor)
+  * [Constructors &amp; Destructors](#constructors--destructors-1)
+  * [Copying objects](#copying-objects)
+  * [Copy Constructor &amp; Move Constructor](#copy-constructor--move-constructor)
+  * [lvalues &amp; rvalues](#lvalues--rvalues)
+* [Overloading operators](#overloading-operators)
+  * [Assignment operators](#assignment-operators)
+  * [Arithmetic operators](#arithmetic-operators)
+  * [const members](#const-members)
+  * [Overloading increment/decrement](#overloading-incrementdecrement)
+  * [Overloading comparison operators](#overloading-comparison-operators)
+  * [Overloading the subscript operator](#overloading-the-subscript-operator)
+  * [friend keyword and overloading operators](#friend-keyword-and-overloading-operators)
+  * [Overloading Input &amp; Output operators](#overloading-input--output-operators)
+* [Inheritance](#inheritance)
+  * [Inheritance vs Composition](#inheritance-vs-composition)
+  * [Sample code](#sample-code)
+  * [Inherited visibility](#inherited-visibility)
+  * [Member overriding](#member-overriding)
+  * [Designing with inheritance](#designing-with-inheritance)
+  * [Inheritance and Constructors](#inheritance-and-constructors)
 
 ----
   
@@ -236,7 +242,7 @@ int main() {
 Difference between `[]` and `at()`
 
 1. The `at()` function performs range checking, while `[]` does not.
-2. If the parameter index is out of bounds by calling `at()` function an out_of_range exception will be thrown.
+2. If the parameter index is out of bounds by calling `at()` function, an out_of_range exception will be thrown.
 
 ### String functions
 
@@ -254,7 +260,9 @@ Functions should at least have their prototypes(declarations) set up before they
 
 ### `inline` function
 
-The `inline` function requires the compiler to perform substitution rather than a full function call.
+A `inline` function requires the compiler to perform substitution rather than a full function call.
+
+A `inline` function is more efficient but need to be simple enough, avoiding loops or recursions.
 
 ```
 inline int cube(int i){
@@ -266,7 +274,7 @@ inline int cube(int i){
 
 C doesn't support function overloading.
 
-In C++, Overloaded functions should have different number or types of parameters.
+In C++, overloaded functions should have different numbers or types of parameters.
 
 The compiler just determines the matched function by parameter signatures. **The difference only in return type is not function overloading**.
 
@@ -864,7 +872,9 @@ Rational operator+(const Rational &lhs,const Rational &rhs){
 ```
 
 Be aware ambiguous definitions for overloading the same operator. The above sample duplicates the overloading "+" 
-as there's already a member with the same functionality. So the compiler will complain.
+as there's already a member overloading "+" with the same functionality. So the compiler will complain.
+
+Also be careful using friend functions as they essentially allow the data hiding and encapsulation of a class to be bypassed.
 
 ### Overloading Input & Output operators
 
@@ -910,3 +920,96 @@ pros and cons of overloading operators
 
 - disadvantage:
   - It's easy to misunderstand the real meaning of an overloaded operator if the programmer doesn't implement it in natural semantics.
+  
+## Inheritance
+  
+### Inheritance vs Composition
+Inheritance is used to implement a "is-a" relationship where a class is a kind of the existing classes.
+Composition is used to implement a "has-a" relationship where a class has or contains one or more of the existing classes.
+  
+### Sample code
+  
+ ```
+class Shape {
+public:
+    Shape(float x = 0.0, float y = 0.0);
+    void print();
+protected:
+    float x_;
+    float y_;
+};
+
+Shape::Shape(float x, float y) :x_(x), y_(y) {}
+void Shape::print() {
+    cout << "(" << x_ << "," << y_ << ")" << endl;
+}
+
+/**
+ * Inherited from base class Shape
+ */
+class Circle :public Shape {
+public:
+    Circle(float x = 0.0, float y = 0.0, float r = 0.0);
+private:
+    float radius_;
+};
+//Since member visibility of Shape are "protected", derived class can access them directly.
+Circle::Circle(float x, float y, float r) :x_(x), y_(y), radius_(r) {}
+```
+
+In princple, a publicly derived class inherits access to every member of a base class except:
+
+1. its contructor and its destructor
+2. its assignment operator members
+3. its frends
+4. its private members
+
+### Inherited visibility
+
+The exact rules of visibility are dependent on both the visibility of the member of the class and the type of inheritance used.
+
+*class* derived_class_name :  *type of inheritance* base_class_name
+```
+class Circle : public Shape{...};
+class Circle : protected Shape(...);
+class Circle : private Shape{...};
+```
+
+If a derived class inherited from a base class:
+| Type of Inheritance | Members in base class | In derived class |
+| --- | --- | --- |
+| public | public / protected / private | public / protected / private |
+| protected | public / protected / private | protected / protected / private |
+| private | public / protected / private | private / private / private |
+
+### Member overriding
+
+```
+class Circle:public Shape{
+public:
+    void print();
+private:
+    float radius_;
+};
+
+void Circle::print(){
+    cout << "(" << x_ << "," << y_ <<"," <<radius_<<")" << endl;
+}
+```
+
+In the case of inheritance, when the compiler looks for a function, it will initially look in the derived class.
+If there's no definition, it will search the base class and so on up to the hierarchy
+unitl a definition is found or the end of the hierarchy is reached.
+
+Overriding vs Overloading
+Overloading functions have different parameters, overriden functions have exactly the same parameters but are defined in sub-classes.
+
+*You should only override a function if the behaviour actually needs to change.*
+
+### Designing with inheritance
+
+In most cases with object-oriented design, keeping a sensible concept and staying true to the system is more important than a minor performance optimization.
+
+Sometimes we should consider a reasonable relationship between classes.Are they "is-a"(inheritance) or "has-a"(composition) relation?
+
+### Inheritance and Constructors
